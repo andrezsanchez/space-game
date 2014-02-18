@@ -23,10 +23,11 @@ gulp.task('jshint', jshint(paths.jshint))
 gulp.task('stylus', ['clean-css'], stylus(paths.stylus, paths.css, 'style.css'))
 gulp.task('browserify', browserify(paths.client.entry, paths.js, 'index.js'))
 
-gulp.task('watch', function() {
+gulp.task('watch', ['build'], function() {
   gulp.watch(paths.jshint, ['jshint'])
   gulp.watch(paths.stylus, ['stylus'])
   gulp.watch(paths.client.js, ['browserify'])
 })
+gulp.task('build', ['jshint', 'stylus', 'browserify'])
 
-gulp.task('default', ['jshint', 'stylus', 'browserify', 'watch'])
+gulp.task('default', ['build'])
