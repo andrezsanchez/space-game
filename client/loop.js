@@ -1,3 +1,5 @@
+'use strict';
+
 var currentTime
 var lastTime
 var delta
