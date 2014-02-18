@@ -6,8 +6,9 @@ var kd = require('keydrown')
 
 var stage = new pixi.Stage(0x000000)
 var renderer = pixi.autoDetectRenderer(800,500)
-var rootNode = document.getElementById('container')
 
+// attach the renderer view to the DOM
+var rootNode = document.getElementById('container')
 rootNode.appendChild(renderer.view)
 
 var texture = pixi.Texture.fromImage("img/fighter.png");
