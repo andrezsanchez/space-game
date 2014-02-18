@@ -5,9 +5,12 @@ var delta
 var fn
 
 function startLoop(cb) {
+  // save the callback function to call
   fn = cb
+
   global.requestAnimationFrame(loop)
 
+  // initialize times so that we don't get NaN
   currentTime = new Date().getTime()
   lastTime = currentTime
 }
@@ -17,6 +20,7 @@ function loop() {
 
   global.requestAnimationFrame(loop)
 
+  // invoke the function given by the initial call
   fn(delta)
 
   lastTime = currentTime
