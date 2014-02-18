@@ -19,9 +19,10 @@ var clean       = require('./gulp/clean')
 var browserify  = require('./gulp/browserify')
 
 gulp.task('clean-css', clean(paths.css))
+gulp.task('clean-js', clean(paths.js))
 gulp.task('jshint', jshint(paths.jshint))
 gulp.task('stylus', ['clean-css'], stylus(paths.stylus, paths.css, 'style.css'))
-gulp.task('browserify', browserify(paths.client.entry, paths.js, 'index.js'))
+gulp.task('browserify', ['clean-js'], browserify(paths.client.entry, paths.js, 'index.js'))
 
 gulp.task('watch', ['build'], function() {
   gulp.watch(paths.jshint, ['jshint'])
