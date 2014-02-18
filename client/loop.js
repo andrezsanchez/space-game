@@ -10,22 +10,21 @@ function startLoop(cb) {
   // save the callback function to call
   fn = cb
 
+  // start the loop process
   global.requestAnimationFrame(loop)
 
-  // initialize times so that we don't get NaN
+  // initialize time so that we don't get NaN
   currentTime = new Date().getTime()
-  lastTime = currentTime
 }
 function loop() {
+  lastTime = currentTime
   currentTime = new Date().getTime()
   delta = (currentTime - lastTime) / 1000
-
-  global.requestAnimationFrame(loop)
 
   // invoke the function given by the initial call
   fn(delta)
 
-  lastTime = currentTime
+  global.requestAnimationFrame(loop)
 }
 
 module.exports = startLoop
