@@ -7,7 +7,7 @@ var stylish = require('jshint-stylish')
 function makeTask(files) {
   return function() {
     gulp.src(files)
-    .pipe(jshint('./.jshintrc'))
+      .pipe(jshint('./.jshintrc'))
       .pipe(jshint.reporter(stylish))
   }
 }
