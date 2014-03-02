@@ -21,8 +21,10 @@ function loop() {
   currentTime = new Date().getTime()
   delta = (currentTime - lastTime) / 1000
 
-  // invoke the function given by the initial call
-  fn(delta)
+  if(delta < 1.0) {
+    // invoke the function given by the initial call
+    fn(delta)
+  }
 
   global.requestAnimationFrame(loop)
 }
