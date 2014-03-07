@@ -1,3 +1,4 @@
+/*global document */
 'use strict';
 
 var pixi = require('pixi')
