@@ -24,8 +24,13 @@ ship.refresh = function(delta) {
 }
 
 ship.handleInput = function(delta) {
-  var dirX = kd.L.isDown() - kd.J.isDown()
-  var dirY = kd.I.isDown() - kd.K.isDown()
+  var left = kd.A.isDown() || kd.LEFT.isDown() || kd.J.isDown()
+  var right = kd.D.isDown() || kd.RIGHT.isDown() || kd.L.isDown()
+  var up = kd.W.isDown() || kd.UP.isDown() || kd.I.isDown()
+  var down = kd.S.isDown() || kd.DOWN.isDown() || kd.K.isDown()
+
+  var dirX = right - left
+  var dirY = up - down
 
   ship.rotation += dirX * Math.PI * delta
   ship.acceleration.x += dirY * Math.sin(ship.rotation) * delta * 40
