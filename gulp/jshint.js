@@ -4,10 +4,10 @@ var gulp = require('gulp')
 var jshint = require('gulp-jshint')
 var stylish = require('jshint-stylish')
 
-function makeTask(files, jshintrc) {
+function makeTask(files) {
   return function() {
     gulp.src(files)
-      .pipe(jshint(jshintrc))
+      .pipe(jshint())
       .pipe(jshint.reporter(stylish))
   }
 }
