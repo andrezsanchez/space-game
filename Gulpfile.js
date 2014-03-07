@@ -21,7 +21,12 @@ var browserify  = require('./gulp/browserify')
 
 gulp.task('clean-css', clean(paths.css))
 gulp.task('clean-js', clean(paths.js))
-gulp.task('jshint', jshint(paths.jshint, paths.jshintrc))
+
+gulp.task('jshint-client', jshint(paths.client.js))
+gulp.task('jshint-server', jshint(paths.jshint))
+
+gulp.task('jshint', ['jshint-server', 'jshint-client'])
+
 gulp.task('stylus', ['clean-css'], stylus(paths.stylus, paths.css, 'style.css'))
 gulp.task('browserify', ['clean-js'], browserify(paths.client.entry, paths.js, 'index.js'))
 
