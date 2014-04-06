@@ -5,13 +5,15 @@ var kd = require('keydrown')
 var shots = require('./shots')
 
 var texture = pixi.Texture.fromImage("img/fighter.png")
-var ship = new pixi.Sprite(texture)
+var ship = {}
+ship.sprite = new pixi.Sprite(texture)
 
 ship.lastShot = new Date().getTime()
-ship.anchor.x = 0.5
-ship.anchor.y = 0.5
-ship.position.x = 200
-ship.position.y = 150
+ship.sprite.anchor.x = 0.5
+ship.sprite.anchor.y = 0.5
+ship.sprite.position.x = 200
+ship.sprite.position.y = 150
+
 ship.acceleration = {
   x: 0,
   y: 0
@@ -19,8 +21,8 @@ ship.acceleration = {
 
 ship.refresh = function(delta) {
   ship.handleInput(delta)
-  ship.position.x += ship.acceleration.x * delta
-  ship.position.y += ship.acceleration.y * delta
+  ship.sprite.position.x += ship.acceleration.x * delta
+  ship.sprite.position.y += ship.acceleration.y * delta
 }
 
 ship.handleInput = function(delta) {
@@ -32,9 +34,9 @@ ship.handleInput = function(delta) {
   var dirX = right - left
   var dirY = up - down
 
-  ship.rotation += dirX * Math.PI * delta
-  ship.acceleration.x += dirY * Math.sin(ship.rotation) * delta * 40
-  ship.acceleration.y -= dirY * Math.cos(ship.rotation) * delta * 40
+  ship.sprite.rotation += dirX * Math.PI * delta
+  ship.acceleration.x += dirY * Math.sin(ship.sprite.rotation) * delta * 40
+  ship.acceleration.y -= dirY * Math.cos(ship.sprite.rotation) * delta * 40
   if (kd.SPACE.isDown()) {
     shoot()
   }
@@ -42,7 +44,7 @@ ship.handleInput = function(delta) {
 
 function shoot() {
   if (new Date().getTime() - ship.lastShot > 120) {
-    shots.newShot(ship.position.x, ship.position.y, ship.rotation)
+    shots.newShot(ship.sprite.position.x, ship.sprite.position.y, ship.sprite.rotation)
     ship.lastShot = new Date().getTime()
   }
 }
