@@ -1,6 +1,7 @@
 'use strict';
 
 var pixi = require('pixi')
+var p2 = require('p2')
 var kd = require('keydrown')
 var shots = require('./shots')
 
@@ -14,15 +15,26 @@ ship.sprite.anchor.y = 0.5
 ship.sprite.position.x = 200
 ship.sprite.position.y = 150
 
+var rect = require('p2/src/shapes/Rectangle')
+var box = new rect(1,1)
+var scale = 20
+ship.pbody = new p2.Body({
+  mass: 1,
+  position:[ship.sprite.position.x / scale, ship.sprite.position.y / scale]
+})
+ship.pbody.addShape(box)
+
 ship.acceleration = {
   x: 0,
   y: 0
 }
 
 ship.refresh = function(delta) {
-  ship.handleInput(delta)
-  ship.sprite.position.x += ship.acceleration.x * delta
-  ship.sprite.position.y += ship.acceleration.y * delta
+  //ship.handleInput(delta)
+  //ship.sprite.position.x += ship.acceleration.x * delta
+  //ship.sprite.position.y += ship.acceleration.y * delta
+  ship.sprite.position.x = ship.pbody.position[0] * scale
+  ship.sprite.position.y = ship.pbody.position[1] * scale
 }
 
 ship.handleInput = function(delta) {
