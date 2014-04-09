@@ -16,7 +16,8 @@
     "gulp-concat": "~2.1.7",
     "gulp-autoprefixer": "0.0.6",
     "gulp-stylus": "0.0.12",
-    "keydrown": "~1.1"
+    "keydrown": "~1.1",
+    "p2": "~0.5"
   },
   "devDependencies": {
     "jshint-stylish": "~0.1.5",
