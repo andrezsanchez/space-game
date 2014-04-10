@@ -50,9 +50,14 @@ ship.handleInput = function(delta) {
   var dirX = right - left
   var dirY = up - down
 
-  ship.sprite.rotation += dirX * Math.PI * delta
   ship.acceleration.x += dirY * Math.sin(ship.sprite.rotation) * delta * 40
   ship.acceleration.y -= dirY * Math.cos(ship.sprite.rotation) * delta * 40
+
+  ship.pbody.force[0] = dirY * Math.sin(ship.pbody.angle) * 5
+  ship.pbody.force[1] = dirY * -Math.cos(ship.pbody.angle) * 5
+
+  ship.pbody.angularForce = dirX * .5
+
   if (kd.SPACE.isDown()) {
     shoot()
   }
