@@ -24,10 +24,6 @@ ship.pbody = new p2.Body({
 })
 ship.pbody.addShape(box)
 
-ship.acceleration = {
-  x: 0,
-  y: 0
-}
 
 ship.refresh = function(delta) {
   ship.handleInput(delta)
@@ -47,9 +43,6 @@ ship.handleInput = function(delta) {
 
   var dirX = right - left
   var dirY = up - down
-
-  ship.acceleration.x += dirY * Math.sin(ship.sprite.rotation) * delta * 40
-  ship.acceleration.y -= dirY * Math.cos(ship.sprite.rotation) * delta * 40
 
   ship.pbody.force[0] = dirY * Math.sin(ship.pbody.angle) * 5
   ship.pbody.force[1] = dirY * -Math.cos(ship.pbody.angle) * 5
