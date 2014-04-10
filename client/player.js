@@ -30,9 +30,7 @@ ship.acceleration = {
 }
 
 ship.refresh = function(delta) {
-  //ship.handleInput(delta)
-  //ship.sprite.position.x += ship.acceleration.x * delta
-  //ship.sprite.position.y += ship.acceleration.y * delta
+  ship.handleInput(delta)
   ship.sprite.position.x = ship.pbody.position[0] * scale
   ship.sprite.position.y = ship.pbody.position[1] * scale
   ship.sprite.rotation = ship.pbody.angle
