@@ -8,7 +8,9 @@ var p2 = require('p2')
 var renderer = require('./renderer')
 var loop = require('./loop')
 var shots = require('./shots')
-var ship = require('./player')
+
+var Ship = require('./player')
+var ship = new Ship()
 
 var stage = new pixi.Stage(0x000000)
 

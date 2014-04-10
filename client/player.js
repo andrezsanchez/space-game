@@ -6,36 +6,39 @@ var kd = require('keydrown')
 var shots = require('./shots')
 
 var texture = pixi.Texture.fromImage("img/fighter.png")
-var ship = {}
-ship.sprite = new pixi.Sprite(texture)
-
-ship.lastShot = new Date().getTime()
-ship.sprite.anchor.x = 0.5
-ship.sprite.anchor.y = 0.5
-ship.sprite.position.x = 200
-ship.sprite.position.y = 150
-
 var rect = require('p2/src/shapes/Rectangle')
-var box = new rect(1,1)
+
 var scale = 20
-ship.pbody = new p2.Body({
-  mass: 1,
-  position:[ship.sprite.position.x / scale, ship.sprite.position.y / scale]
-})
-ship.pbody.addShape(box)
 
+var Ship = function () {
+  this.sprite = new pixi.Sprite(texture)
 
-ship.refresh = function(delta) {
-  ship.handleInput(delta)
-  ship.sprite.position.x = ship.pbody.position[0] * scale
-  ship.sprite.position.y = ship.pbody.position[1] * scale
-  ship.sprite.rotation = ship.pbody.angle
+  this.lastShot = new Date().getTime()
+  this.sprite.anchor.x = 0.5
+  this.sprite.anchor.y = 0.5
+  this.sprite.position.x = 200
+  this.sprite.position.y = 150
 
-  ship.pbody.angularVelocity = Math.max(-10, ship.pbody.angularVelocity)
-  ship.pbody.angularVelocity = Math.min(10, ship.pbody.angularVelocity)
+  this.pbody = new p2.Body({
+    mass: 1,
+    position:[this.sprite.position.x / scale, this.sprite.position.y / scale]
+  })
+
+  var box = new rect(1,1)
+  this.pbody.addShape(box)
 }
 
-ship.handleInput = function(delta) {
+Ship.prototype.refresh = function(delta) {
+  this.handleInput(delta)
+  this.sprite.position.x = this.pbody.position[0] * scale
+  this.sprite.position.y = this.pbody.position[1] * scale
+  this.sprite.rotation = this.pbody.angle
+
+  this.pbody.angularVelocity = Math.max(-10, this.pbody.angularVelocity)
+  this.pbody.angularVelocity = Math.min(10, this.pbody.angularVelocity)
+}
+
+Ship.prototype.handleInput = function(delta) {
   var left = kd.A.isDown() || kd.LEFT.isDown() || kd.J.isDown()
   var right = kd.D.isDown() || kd.RIGHT.isDown() || kd.L.isDown()
   var up = kd.W.isDown() || kd.UP.isDown() || kd.I.isDown()
@@ -44,21 +47,21 @@ ship.handleInput = function(delta) {
   var dirX = right - left
   var dirY = up - down
 
-  ship.pbody.force[0] = dirY * Math.sin(ship.pbody.angle) * 5
-  ship.pbody.force[1] = dirY * -Math.cos(ship.pbody.angle) * 5
+  this.pbody.force[0] = dirY * Math.sin(this.pbody.angle) * 5
+  this.pbody.force[1] = dirY * -Math.cos(this.pbody.angle) * 5
 
-  ship.pbody.angularForce = dirX * .5
+  this.pbody.angularForce = dirX * 0.5
 
   if (kd.SPACE.isDown()) {
-    shoot()
+    this.shoot()
   }
 }
 
-function shoot() {
-  if (new Date().getTime() - ship.lastShot > 120) {
-    shots.newShot(ship.sprite.position.x, ship.sprite.position.y, ship.sprite.rotation)
-    ship.lastShot = new Date().getTime()
+Ship.prototype.shoot = function() {
+  if (new Date().getTime() - this.lastShot > 120) {
+    shots.newShot(this.sprite.position.x, this.sprite.position.y, this.sprite.rotation)
+    this.lastShot = new Date().getTime()
   }
 }
 
-module.exports = ship
+module.exports = Ship
