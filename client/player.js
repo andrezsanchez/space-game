@@ -35,6 +35,10 @@ ship.refresh = function(delta) {
   //ship.sprite.position.y += ship.acceleration.y * delta
   ship.sprite.position.x = ship.pbody.position[0] * scale
   ship.sprite.position.y = ship.pbody.position[1] * scale
+  ship.sprite.rotation = ship.pbody.angle
+
+  ship.pbody.angularVelocity = Math.max(-10, ship.pbody.angularVelocity)
+  ship.pbody.angularVelocity = Math.min(10, ship.pbody.angularVelocity)
 }
 
 ship.handleInput = function(delta) {
