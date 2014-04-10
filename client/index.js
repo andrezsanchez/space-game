@@ -12,7 +12,7 @@ var ship = require('./player')
 
 var stage = new pixi.Stage(0x000000)
 
-var world = new p2.World({ gravity: [0, 9.82] })
+var world = new p2.World({ gravity: [0, 0] })
 
 shots.setStage(stage)
 stage.addChild(ship.sprite)
