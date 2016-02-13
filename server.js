@@ -18,7 +18,7 @@ function makeApp() {
 }
 
 function startApp() {
-  var PORT = process.env.port || 80
+  var PORT = process.env.PORT || 8080
   var app = makeApp()
   app.listen(PORT, function(err) {
     if (err) throw err
